@@ -26,7 +26,7 @@ public class WriterManager {
             addProductTemplate(product);
 
 
-            FileOutputStream fileOut = fileOut = new FileOutputStream("FinalProject-Sanhueza.xlsx");
+            FileOutputStream fileOut = fileOut = new FileOutputStream("File/FinalProject-Sanhueza.xlsx");
             workbook.write(fileOut);
             fileOut.close();
             workbook.close();
