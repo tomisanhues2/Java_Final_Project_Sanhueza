@@ -1,3 +1,5 @@
+package Abstract;
+
 public abstract class AStore {
 
     private static int Id = 0;

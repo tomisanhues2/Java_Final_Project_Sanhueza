@@ -1,8 +1,10 @@
-public abstract class AProduct {
+package Abstract;
+
+public abstract class AEmployee {
 
     private static int Id = 0;
 
-    public AProduct() {
+    public AEmployee() {
         Id++;
     }
 

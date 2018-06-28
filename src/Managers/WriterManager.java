@@ -1,3 +1,5 @@
+package Managers;
+
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -20,8 +22,8 @@ public class WriterManager {
 
 
             Sheet product = workbook.createSheet("Products");
-            Sheet Employee = workbook.createSheet("Employee");
-            Sheet Store = workbook.createSheet("Store");
+            Sheet Employee = workbook.createSheet("Objects.Employee");
+            Sheet Store = workbook.createSheet("Objects.Store");
 
             addProductTemplate(product);
 
@@ -53,7 +55,7 @@ public class WriterManager {
                     sheet.setDefaultColumnStyle(i, IdStyle);
                     break;
 
-                case 2: //Add validation to Product name
+                case 2: //Add validation to Objects.Product name
                     break;
 
                 case 3: //Add formatting to Currency
@@ -85,16 +87,16 @@ public class WriterManager {
                     cellId.setCellStyle(headerCellStyle);
 
                     Cell cellProduct = row.createCell(2);
-                    cellProduct.setCellValue("Product Name");
+                    cellProduct.setCellValue("Objects.Product Name");
                     cellProduct.setCellStyle(headerCellStyle);
 
                     Cell cellPrice = row.createCell(3);
-                    cellPrice.setCellValue("Product price per bag");
+                    cellPrice.setCellValue("Objects.Product price per bag");
                     cellPrice.setCellStyle(headerCellStyle);
 
 
                     Cell cellQuantity = row.createCell(4);
-                    cellQuantity.setCellValue("Product quantity per bag");
+                    cellQuantity.setCellValue("Objects.Product quantity per bag");
                     cellQuantity.setCellStyle(headerCellStyle);
                     break;
             }

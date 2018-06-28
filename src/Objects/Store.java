@@ -1,3 +1,7 @@
+package Objects;
+
+import Abstract.AStore;
+
 import java.io.Serializable;
 
 public class Store extends AStore implements Serializable {

@@ -1,10 +1,14 @@
+package Objects;
+
+import Abstract.AProduct;
+
 import java.io.Serializable;
 
 public class Product extends AProduct implements Serializable {
 
-    private String productName; //Store product name
-    private double productPrice; //Store product price per bag
-    private int productAmount;  //Store product quantity per bag
+    private String productName; //Objects.Store product name
+    private double productPrice; //Objects.Store product price per bag
+    private int productAmount;  //Objects.Store product quantity per bag
 
     private int Id;
 
@@ -47,6 +51,6 @@ public class Product extends AProduct implements Serializable {
 
     @Override
     public String toString() {
-        return "-----------------------------------\n" + String.format("Product ID: %d\nProduct Name: %s\nProduct Price per bag: %.2f\nProduct Quantity per bag: %d\n",getId(),getProductName(),getProductPrice(),getProductAmount()) + "-----------------------------------\n";
+        return "-----------------------------------\n" + String.format("Objects.Product ID: %d\nObjects.Product Name: %s\nObjects.Product Price per bag: %.2f\nObjects.Product Quantity per bag: %d\n",getId(),getProductName(),getProductPrice(),getProductAmount()) + "-----------------------------------\n";
     }
 }
