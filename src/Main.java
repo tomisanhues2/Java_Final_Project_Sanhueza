@@ -1,4 +1,6 @@
+import Managers.NewManager;
 import Managers.ReaderManager;
+import Resources.WindowSize;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -12,11 +14,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-public class Main extends Application{
-
-    private final int WINDOW_X = 600;
-    private final int WINDOW_Y = 300;
-
+public class Main extends Application implements WindowSize {
 
 
     //https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#introlimitations
@@ -25,9 +23,8 @@ public class Main extends Application{
     }
 
 
-
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception {
         StackPane menu = new StackPane();
         ObservableList menuList = menu.getChildren();
 
@@ -50,9 +47,15 @@ public class Main extends Application{
         Button createNewButton = new Button();
         createNewButton.setText("Create new records");
         createNewButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            //CREATE NEW FILE
+            try {
+                NewManager newManager = new NewManager(stage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+            }
             createNewButton.setDisable(true);
         });
+
 
         createNewButton.setId("createButton");
 
@@ -65,23 +68,23 @@ public class Main extends Application{
 
         //Position Elements in scene
         StackPane.setAlignment(menuText, Pos.TOP_CENTER);
-        StackPane.setMargin(menuText,new Insets(20,0,0,0));
+        StackPane.setMargin(menuText, new Insets(20, 0, 0, 0));
 
-        StackPane.setAlignment(existingFileButton,Pos.CENTER_LEFT);
-        StackPane.setMargin(existingFileButton,new Insets(0,0,0,30));
+        StackPane.setAlignment(existingFileButton, Pos.CENTER_LEFT);
+        StackPane.setMargin(existingFileButton, new Insets(0, 0, 0, 30));
 
-        StackPane.setAlignment(createNewButton,Pos.CENTER_RIGHT);
-        StackPane.setMargin(createNewButton, new Insets(0,30,0,0));
+        StackPane.setAlignment(createNewButton, Pos.CENTER_RIGHT);
+        StackPane.setMargin(createNewButton, new Insets(0, 30, 0, 0));
 
 
         //Create scene and set
         Scene menuS = new Scene(menu, WINDOW_X, WINDOW_Y);
         menuS.getStylesheets().add("css/menu.css");
 
-        primaryStage.setScene(menuS);
-        primaryStage.setTitle("Objects.Store Manager");
-        primaryStage.show();
-        primaryStage.centerOnScreen();
+        stage.setScene(menuS);
+        stage.setTitle("Objects.Store Manager");
+        stage.show();
+        stage.centerOnScreen();
     }
 }
 

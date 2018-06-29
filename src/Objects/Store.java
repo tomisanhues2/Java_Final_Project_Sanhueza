@@ -1,10 +1,10 @@
 package Objects;
 
-import Abstract.AStore;
+import Resources.ID;
 
 import java.io.Serializable;
 
-public class Store extends AStore implements Serializable {
+public class Store extends ID implements Serializable {
 
     private String storeName;
     private String storePhoneNum;
@@ -12,17 +12,12 @@ public class Store extends AStore implements Serializable {
     private Employee storeManager;
     private int storeId;
 
-
-    public Store() {
-        storeId = getId();
-    }
-
     public Store(String storeName, String storePhoneNum, String storeAddress, Employee storeManager) {
         this.storeName = storeName;
         this.storePhoneNum = storePhoneNum;
         this.storeAddress = storeAddress;
         this.storeManager = storeManager;
-        storeId = getId() + 1;
+        storeId = getStoreId();
     }
 
     public String getStoreName() {
@@ -47,10 +42,6 @@ public class Store extends AStore implements Serializable {
 
     public void setStoreAddress(String storeAddress) {
         this.storeAddress = storeAddress;
-    }
-
-    public int getStoreId() {
-        return storeId;
     }
 
     public void setStoreId(int storeId) {

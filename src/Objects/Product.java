@@ -1,23 +1,22 @@
 package Objects;
 
-import Abstract.AProduct;
+import Resources.ID;
 
 import java.io.Serializable;
 
-public class Product extends AProduct implements Serializable {
+public class Product extends ID implements Serializable {
 
     private String productName; //Objects.Store product name
     private double productPrice; //Objects.Store product price per bag
     private int productAmount;  //Objects.Store product quantity per bag
-
-    private int Id;
+    int productId;
 
     public Product(String productName, double productPrice, int productAmount) {
         super();
         this.productName = productName;
         this.productPrice = productPrice;
         this.productAmount = productAmount;
-        Id = super.getId();
+        productId = getProductId();
     }
 
     public String getProductName() {
@@ -45,12 +44,7 @@ public class Product extends AProduct implements Serializable {
     }
 
     @Override
-    public int getId() {
-        return Id;
-    }
-
-    @Override
     public String toString() {
-        return "-----------------------------------\n" + String.format("Objects.Product ID: %d\nObjects.Product Name: %s\nObjects.Product Price per bag: %.2f\nObjects.Product Quantity per bag: %d\n",getId(),getProductName(),getProductPrice(),getProductAmount()) + "-----------------------------------\n";
+        return "-----------------------------------\n" + String.format("Objects.Product ID: %d\nObjects.Product Name: %s\nObjects.Product Price per bag: %.2f\nObjects.Product Quantity per bag: %d\n",productId,getProductName(),getProductPrice(),getProductAmount()) + "-----------------------------------\n";
     }
 }
