@@ -8,14 +8,13 @@ import Resources.WindowSize;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -27,6 +26,9 @@ public class NewManager extends ALayout implements WindowSize {
     ArrayList<Employee> employees = new ArrayList<>();
     ArrayList<Product> products = new ArrayList<>();
     ResourceBundle messages = ResourceBundle.getBundle("Messages.Messages");
+
+
+
 
     public NewManager(Stage stage) throws Exception {
         start(stage);
@@ -42,7 +44,6 @@ public class NewManager extends ALayout implements WindowSize {
         menuText.setId("MenuText"); //ID
         StackPane.setAlignment(menuText, Pos.TOP_CENTER);
         StackPane.setMargin(menuText, new Insets(30, 0, 0, 0));
-        menuText.setFont(new Font(18)); //TEMP FIELD, MOVE TO CSS
         menuText.setStyle("-fx-weight: bold;"); //TEMP FIELD, MOVE TO CSS
 
 
@@ -73,8 +74,9 @@ public class NewManager extends ALayout implements WindowSize {
         //Add elements to Pane lists
         createList.addAll(employeeButton, storeButton, productButton, menuText); //ADD ELEMENTS
 
+        createMenu.getStyleClass().add("text");
         Scene createMenuS = new Scene(createMenu, WINDOW_X, WINDOW_Y);
-        createMenuS.getStylesheets().add("css/createMenu.css");
+        createMenuS.getStylesheets().addAll("css/createMenu.css","css/styles.css");
         stage.setScene(createMenuS);
         stage.show();
         stage.centerOnScreen();
@@ -111,30 +113,39 @@ public class NewManager extends ALayout implements WindowSize {
 
         //Create product menu text
         Text text = new Text(messages.getString("productMenuText"));
-        text.setFont(new Font(18));
         text.setId("productText"); //ID
 
         //Create elements for titles and user input
         Text productName = new Text(messages.getString("productNameLiteral"));
         TextField productNameField = new TextField(messages.getString("productNameLiteral"));
         ALIGN_CENTER_LEFT(productName,productNameField);
-        StackPane.setMargin(productName, new Insets(0,0,30,0));
+        productName.setTextAlignment(TextAlignment.CENTER);
+        productName.setWrappingWidth(MAX_SIZE_ELEMENT);
+        productNameField.setMaxWidth(MAX_SIZE_ELEMENT);
+        StackPane.setMargin(productName, SEPARATE_ELEMENT_LEFT);
 
         Text productPrice = new Text(messages.getString("productPriceLiteral"));
-        TextField productPriceTextField = new TextField(messages.getString("productPriceLiteral"));
-        ALIGN_CENTER_CENTER(productPrice,productPriceTextField);
-        StackPane.setMargin(productPrice,new Insets(0,0,30,0));
+        TextField productPriceField = new TextField(messages.getString("productPriceLiteral"));
+        ALIGN_CENTER_CENTER(productPrice,productPriceField);
+        productPrice.setTextAlignment(TextAlignment.CENTER);
+        productPrice.setWrappingWidth(MAX_SIZE_ELEMENT);
+        productPriceField.setMaxWidth(MAX_SIZE_ELEMENT);
+        StackPane.setMargin(productPrice, SEPARATE_ELEMENT_CENTER);
 
         Text productAmount = new Text(messages.getString("productAmountLiteral"));
-        TextField productAmountTextField = new TextField(messages.getString("productAmountLiteral"));
-        ALIGN_CENTER_RIGHT(productAmount,productAmountTextField);
-        
-        StackPane.setMargin(productAmount, new Insets(0, 0, 30,0));
+        TextField productAmountField = new TextField(messages.getString("productAmountLiteral"));
+        ALIGN_CENTER_RIGHT(productAmount,productAmountField);
+        productAmount.setTextAlignment(TextAlignment.CENTER);
+        productAmount.setWrappingWidth(MAX_SIZE_ELEMENT);
+        productAmountField.setMaxWidth(MAX_SIZE_ELEMENT);
+        StackPane.setMargin(productAmount,SEPARATE_ELEMENT_RIGHT);
+
 
         //Add elements to pane
-        newProductList.addAll(productName,productNameField,productPrice,productPriceTextField,productAmount,productAmountTextField);
-        
+        newProductList.addAll(productName, productNameField,productPrice, productPriceField, productAmount, productAmountField);
+        newProduct.getStyleClass().add("text");
         Scene newProductScene = new Scene(newProduct, WINDOW_X, WINDOW_Y);
+        newProductScene.getStylesheets().addAll("css/productMenu.css","css/styles.css");
         stage.setScene(newProductScene);
     }
 

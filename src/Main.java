@@ -31,7 +31,6 @@ public class Main extends Application implements WindowSize {
         //Create menu text
         Text menuText = new Text();
         menuText.setText("Menu");
-        menuText.setFont(new Font(18));
         menuText.setId("menuText");
 
         //Create buttons
@@ -77,9 +76,11 @@ public class Main extends Application implements WindowSize {
         StackPane.setMargin(createNewButton, new Insets(0, 30, 0, 0));
 
 
+
+        menu.getStyleClass().add("text");
         //Create scene and set
         Scene menuS = new Scene(menu, WINDOW_X, WINDOW_Y);
-        menuS.getStylesheets().add("css/menu.css");
+        menuS.getStylesheets().addAll("css/menu.css","css/styles.css");
 
         stage.setScene(menuS);
         stage.setTitle("Objects.Store Manager");
