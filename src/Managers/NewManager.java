@@ -49,7 +49,7 @@ public class NewManager extends ALayout implements WindowSize, Constants {
     }
 
     private void getProductFromSER() throws IOException, ClassNotFoundException {
-        FileInputStream fileIn = new FileInputStream("/tmp/product.ser");
+        FileInputStream fileIn = new FileInputStream(PRODUCT_PATH);
         ObjectInputStream in = new ObjectInputStream(fileIn);
         ArrayList<Product> productArrayList = (ArrayList<Product>) in.readObject();
         products.addAll(productArrayList);
@@ -59,7 +59,7 @@ public class NewManager extends ALayout implements WindowSize, Constants {
     }
 
     private void getEmployeeFromSER() throws IOException, ClassNotFoundException {
-        FileInputStream fileIn = new FileInputStream("/tmp/employee.ser");
+        FileInputStream fileIn = new FileInputStream(EMPLOYEE_PATH);
         ObjectInputStream in = new ObjectInputStream(fileIn);
         ArrayList<Employee> productArrayList = (ArrayList<Employee>) in.readObject();
         employees.addAll(productArrayList);
@@ -69,7 +69,7 @@ public class NewManager extends ALayout implements WindowSize, Constants {
     }
 
     private void getStoreFromSER() throws IOException, ClassNotFoundException {
-        FileInputStream fileIn = new FileInputStream("/tmp/store.ser");
+        FileInputStream fileIn = new FileInputStream(STORE_PATH);
         ObjectInputStream in = new ObjectInputStream(fileIn);
         ArrayList<Store> productArrayList = (ArrayList<Store>) in.readObject();
         stores.addAll(productArrayList);

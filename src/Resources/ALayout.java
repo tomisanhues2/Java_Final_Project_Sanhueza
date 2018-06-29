@@ -19,6 +19,7 @@ public abstract class ALayout extends Application implements WindowSize{
     protected final int MARGIN_BORDER = (int)Math.floor(WINDOW_X * 0.07);
     protected final int MAX_SIZE_ELEMENT = 200;
     final private int SEPARATE_DISTANCE = 80;
+
     public final Insets SEPARATE_ELEMENT_LEFT = new Insets(0,0,SEPARATE_DISTANCE,MARGIN_BORDER);
     public final Insets SEPARATE_ELEMENT_CENTER = new Insets(0,0,SEPARATE_DISTANCE,0);
     public final Insets SEPARATE_ELEMENT_RIGHT = new Insets(0,MARGIN_BORDER,SEPARATE_DISTANCE,0);
