@@ -8,14 +8,24 @@ public abstract class ID {
 
 
     public int getEmployeeId() {
-        return ++employeeId;
+        return employeeId;
     }
 
-    public static int getStoreId() {
-        return ++storeId;
+    public int getStoreId() {
+        return storeId;
     }
 
-    public static int getProductId() {
-        return ++productId;
+    public int getProductId() {
+        return productId;
+    }
+
+    public final void addProductId() {
+        productId++;
+    }
+    public final void addEmployeeId() {
+        employeeId++;
+    }
+    public final void addStoreId() {
+        storeId++;
     }
 }

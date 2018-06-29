@@ -12,11 +12,17 @@ public class Product extends ID implements Serializable {
     int productId;
 
     public Product(String productName, double productPrice, int productAmount) {
-        super();
         this.productName = productName;
         this.productPrice = productPrice;
         this.productAmount = productAmount;
-        productId = getProductId();
+        addProductId();
+        productId = super.getProductId();
+
+    }
+
+    @Override
+    public int getProductId() {
+        return productId;
     }
 
     public String getProductName() {

@@ -1,6 +1,5 @@
 package Resources;
 
-import javafx.stage.Stage;
 
 public interface WindowSize {
 
