@@ -13,7 +13,7 @@ public class Product extends ID implements Serializable {
 
     public Product(String productName, double productPrice, int productAmount) {
         this.productName = productName;
-        this.productPrice = productPrice;
+        this.productPrice = Math.round(productPrice*100.0)/100.0;
         this.productAmount = productAmount;
         addProductId();
         productId = super.getProductId();

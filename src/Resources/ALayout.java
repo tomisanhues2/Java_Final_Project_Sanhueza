@@ -4,21 +4,31 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
+
+import java.awt.event.MouseEvent;
+
 
 public abstract class ALayout extends Application implements WindowSize{
 
     protected final int MARGIN_BORDER = (int)Math.floor(WINDOW_X * 0.07);
-    protected final int MAX_SIZE_ELEMENT = 240;
+    protected final int MAX_SIZE_ELEMENT = 200;
     final private int SEPARATE_DISTANCE = 80;
     public final Insets SEPARATE_ELEMENT_LEFT = new Insets(0,0,SEPARATE_DISTANCE,MARGIN_BORDER);
     public final Insets SEPARATE_ELEMENT_CENTER = new Insets(0,0,SEPARATE_DISTANCE,0);
     public final Insets SEPARATE_ELEMENT_RIGHT = new Insets(0,MARGIN_BORDER,SEPARATE_DISTANCE,0);
 
+    public final String INVALID_INPUT = "-fx-background-color: rgb(255, 0, 0)";
+    public final String VALID_INPUT = "-fx-background-color: rgb(0, 255, 0)";
+    public final String NEW_INPUT = "-fx-background-color: rgb(217, 217, 217)";
+
     protected final void TITLE_ALIGN_CENTER(Node child) {
         StackPane.setAlignment(child,Pos.TOP_CENTER);
-        StackPane.setMargin(child, new Insets(MARGIN_BORDER/2,0,0,0));
+        StackPane.setMargin(child, new Insets(MARGIN_BORDER/2.6,0,0,0));
         child.getStyleClass().add("titleText");
     }
 
@@ -80,6 +90,22 @@ public abstract class ALayout extends Application implements WindowSize{
             StackPane.setAlignment(n, Pos.TOP_RIGHT);
             StackPane.setMargin(n,new Insets(MARGIN_BORDER/2,MARGIN_BORDER,0,0));
         }
-
     }
+
+    protected final VBox ADD_MENUBAR_SCENE() {
+        MenuBar bar = new MenuBar();
+        ClickableMenu clickableMenu = new ClickableMenu("Finish");
+        clickableMenu.setOnAction(event -> {
+            System.out.println("WORKS");
+            saveNewInputSER();
+        });
+        bar.getMenus().add(clickableMenu);
+        VBox vbox = new VBox(bar);
+        vbox.setPadding(new Insets(10, 20, 10, 20));
+
+        return vbox;
+    }
+
+    protected abstract void saveNewInputSER();
+
 }

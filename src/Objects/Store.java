@@ -10,14 +10,20 @@ public class Store extends ID implements Serializable {
     private String storePhoneNum;
     private String storeAddress;
     private Employee storeManager;
-    private int storeId;
+    int storeId;
 
     public Store(String storeName, String storePhoneNum, String storeAddress, Employee storeManager) {
         this.storeName = storeName;
         this.storePhoneNum = storePhoneNum;
         this.storeAddress = storeAddress;
         this.storeManager = storeManager;
-        storeId = getStoreId();
+        addStoreId();
+        storeId = super.getStoreId();
+    }
+
+    @Override
+    public int getStoreId() {
+        return storeId;
     }
 
     public String getStoreName() {

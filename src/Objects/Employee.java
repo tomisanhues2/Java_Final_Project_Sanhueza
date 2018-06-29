@@ -15,7 +15,13 @@ public class Employee extends ID implements Serializable {
         this.employeeName = employeeName;
         this.employeeEmail = employeeEmail;
         this.employeePhone = employeePhone;
-        employeeId = getEmployeeId();
+        addEmployeeId();
+        employeeId = super.getEmployeeId();
+    }
+
+    @Override
+    public int getEmployeeId() {
+        return employeeId;
     }
 
     public String getEmployeeName() {

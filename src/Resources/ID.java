@@ -1,11 +1,14 @@
 package Resources;
 
+import java.text.DecimalFormat;
+
 public abstract class ID {
 
-    private static int employeeId = 0;
-    private static int storeId = 0;
-    private static int productId = 0;
+    public static int employeeId = 0;
+    public static int storeId = 0;
+    public static int productId = 0;
 
+    public final DecimalFormat FORMAT_DOUBLE_CURRENCY = new DecimalFormat("#.##");
 
     public int getEmployeeId() {
         return employeeId;
