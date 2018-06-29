@@ -117,7 +117,6 @@ public class Main extends ALayout implements WindowSize, Constants {
             createEmployeeFile();
             createStoreFile();
         } else {
-
         }
     }
 

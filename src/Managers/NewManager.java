@@ -4,30 +4,38 @@ import Objects.Employee;
 import Objects.Product;
 import Objects.Store;
 import Resources.ALayout;
+import Resources.Constants;
 import Resources.ID;
 import Resources.WindowSize;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class NewManager extends ALayout implements WindowSize {
+public class NewManager extends ALayout implements WindowSize, Constants {
 
     private ObservableList<Store> stores = FXCollections.observableArrayList();
     private ObservableList<Employee> employees = FXCollections.observableArrayList();
@@ -163,7 +171,7 @@ public class NewManager extends ALayout implements WindowSize {
         HBox hbox = new HBox();
         HBox hLabels = new HBox();
         TableView table = new TableView();
-        table.setEditable(false);
+        table.setEditable(true);
 
         Text title = new Text();
 
@@ -175,22 +183,47 @@ public class NewManager extends ALayout implements WindowSize {
             id.setPrefWidth(40);
             id.setStyle("-fx-font-size: 16");
             id.setCellValueFactory(new PropertyValueFactory<Product, Integer>("productId"));
+            id.setEditable(false);
 
 
             TableColumn name = new TableColumn(messages.getString("productNameLiteral"));
             name.setPrefWidth(MAX_SIZE_ELEMENT);
             name.setStyle("-fx-font-size: 16");
             name.setCellValueFactory(new PropertyValueFactory<Product, String>("productName"));
+            name.setCellFactory(TextFieldTableCell.forTableColumn());
+            name.setOnEditCommit((EventHandler<CellEditEvent<Product, String>>) event -> {
+                System.out.println("Clicked");
+                if (productValidName(event.getNewValue()) != null)
+                    event.getTableView().getItems().get(event.getTablePosition().getRow()).setProductName(event.getNewValue());
+                else {
+                    event.getTableView().getItems().get(event.getTablePosition().getRow()).setProductName(event.getOldValue());                }
+            });
 
             TableColumn price = new TableColumn(messages.getString("productPriceLiteral"));
             price.setPrefWidth(MAX_SIZE_ELEMENT);
             price.setStyle("-fx-font-size: 16");
             price.setCellValueFactory(new PropertyValueFactory<Product, Double>("productPrice"));
+            price.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
+            price.setOnEditCommit((EventHandler<CellEditEvent<Product, Double>>) event -> {
+                System.out.println("Clicked");
+                if (productValidPrice(event.getNewValue().toString()) != -1)
+                     event.getTableView().getItems().get(event.getTablePosition().getRow()).setProductPrice(event.getNewValue());
+                else
+                    event.getTableView().getItems().get(event.getTablePosition().getRow()).setProductPrice(event.getOldValue());
+            });
 
             TableColumn amount = new TableColumn(messages.getString("productAmountLiteral"));
             amount.setPrefWidth(MAX_SIZE_ELEMENT);
             amount.setStyle("-fx-font-size: 16");
-            amount.setCellValueFactory(new PropertyValueFactory<Product, Integer>("productAmount"));
+            amount.setCellValueFactory(new PropertyValueFactory<Product, Double>("productAmount"));
+            amount.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
+            amount.setOnEditCommit((EventHandler<CellEditEvent<Product, Integer>>) event -> {
+                System.out.println("Clicked");
+                if (productValidAmount(event.getNewValue().toString()) != -1)
+                    event.getTableView().getItems().get(event.getTablePosition().getRow()).setProductAmount(event.getNewValue());
+                else
+                    event.getTablePosition().getTableView().setStyle(INVALID_INPUT);
+            });
 
             table.setItems(products);
 
@@ -201,6 +234,7 @@ public class NewManager extends ALayout implements WindowSize {
             Text newProductNameLiteral = new Text(messages.getString("productNameLiteral"));
             newProductNameLiteral.setWrappingWidth(210);
             newProductName.setStyle(NEW_INPUT);
+
 
             TextField newProductPrice = new TextField();
             newProductPrice.setPromptText(messages.getString("productPriceLiteral"));
@@ -300,12 +334,27 @@ public class NewManager extends ALayout implements WindowSize {
     }
 
     @Override
-    protected void saveNewInputSER() {
-        File productFile = new File("/tmp/product.ser");
-        File employeeFile = new File("/tmp/employee.ser");
-        File storeFile = new File("/tmp/store.ser");
+    protected void saveNewInputSER() throws IOException{
 
+        saveNewProductInputSER(PRODUCT_FILE);
 
+        Button button = new Button(messages.getString("confirmExit"));
+        button.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            System.exit(0);
+        });
+        button.setMaxSize(200,100);
+        GridPane group = new GridPane();
+
+        group.getChildren().add(button);
+        group.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(group,300,150);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle(messages.getString("confirmExit"));
+        stage.show();
+        stage.setAlwaysOnTop(true);
+        stage.centerOnScreen();
     }
 
     private void saveNewProductInputSER(File file) throws IOException {

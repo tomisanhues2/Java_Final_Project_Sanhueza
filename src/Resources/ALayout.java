@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 
 public abstract class ALayout extends Application implements WindowSize{
@@ -97,7 +98,12 @@ public abstract class ALayout extends Application implements WindowSize{
         ClickableMenu clickableMenu = new ClickableMenu("Finish");
         clickableMenu.setOnAction(event -> {
             System.out.println("WORKS");
-            saveNewInputSER();
+            try {
+                saveNewInputSER();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         bar.getMenus().add(clickableMenu);
         VBox vbox = new VBox(bar);
@@ -106,6 +112,6 @@ public abstract class ALayout extends Application implements WindowSize{
         return vbox;
     }
 
-    protected abstract void saveNewInputSER();
+    protected abstract void saveNewInputSER() throws IOException;
 
 }
