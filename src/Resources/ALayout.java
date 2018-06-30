@@ -1,24 +1,21 @@
 package Resources;
 
 import Objects.Employee;
+import ResourceObjects.ClickableMenu;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 
-public abstract class ALayout extends Application implements WindowSize{
+public abstract class ALayout extends Application implements WindowSize, Constants{
 
-    protected final int MARGIN_BORDER = (int)Math.floor(WINDOW_X * 0.07);
-    protected final int MAX_SIZE_ELEMENT = 200;
+
     final private int SEPARATE_DISTANCE = 80;
 
     public final Insets SEPARATE_ELEMENT_LEFT = new Insets(0,0,SEPARATE_DISTANCE,MARGIN_BORDER);
@@ -169,26 +166,5 @@ public abstract class ALayout extends Application implements WindowSize{
             StackPane.setMargin(n,new Insets(MARGIN_BORDER/2,MARGIN_BORDER,0,0));
         }
     }
-
-    protected final VBox ADD_MENUBAR_SCENE() {
-        MenuBar bar = new MenuBar();
-        ClickableMenu clickableMenu = new ClickableMenu("Finish");
-        clickableMenu.setOnAction(event -> {
-            System.out.println("WORKS");
-            try {
-                saveNewInputSER();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        bar.getMenus().add(clickableMenu);
-        VBox vbox = new VBox(bar);
-        vbox.setPadding(new Insets(10, 20, 10, 20));
-
-        return vbox;
-    }
-
-    protected abstract void saveNewInputSER() throws IOException;
 
 }

@@ -7,17 +7,14 @@ import Resources.ALayout;
 import Resources.Constants;
 import Resources.ID;
 import Resources.WindowSize;
-import com.sun.tools.corba.se.idl.StringGen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
@@ -32,18 +29,20 @@ import javafx.util.converter.IntegerStringConverter;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class NewManager extends ALayout implements WindowSize, Constants {
 
     private ObservableList<Store> stores = FXCollections.observableArrayList();
     private ObservableList<Employee> employees = FXCollections.observableArrayList();
     private ObservableList<Product> products = FXCollections.observableArrayList();
-    ResourceBundle messages = ResourceBundle.getBundle("Messages.Messages");
+
+
 
 
     public NewManager(Stage stage) throws Exception {
         getProductFromSER();
+        getEmployeeFromSER();
+        getStoreFromSER();
         start(stage);
     }
 
@@ -63,6 +62,9 @@ public class NewManager extends ALayout implements WindowSize, Constants {
         ArrayList<Employee> productArrayList = (ArrayList<Employee>) in.readObject();
         employees.addAll(productArrayList);
         ID.employeeId = employees.size();
+        for (Employee e : employees) {
+            System.out.println(e);
+        }
         in.close();
         fileIn.close();
     }
@@ -73,6 +75,9 @@ public class NewManager extends ALayout implements WindowSize, Constants {
         ArrayList<Store> productArrayList = (ArrayList<Store>) in.readObject();
         stores.addAll(productArrayList);
         ID.storeId = stores.size();
+        for (Store s : stores) {
+            System.out.println(s);
+        }
         in.close();
         fileIn.close();
     }
@@ -91,12 +96,10 @@ public class NewManager extends ALayout implements WindowSize, Constants {
         TITLE_ALIGN_CENTER(menuText);
 
 
-        //Create buttons
+        //Create buttons//
 
         //Employee
         Button employeeButton = new Button(messages.getString("employeeButton"));
-        StackPane.setAlignment(employeeButton, Pos.BOTTOM_LEFT);
-        StackPane.setMargin(employeeButton, new Insets(0, 0, 40, 30));
         employeeButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             stage.setScene(showExistingElements(1));
         });
@@ -105,16 +108,12 @@ public class NewManager extends ALayout implements WindowSize, Constants {
 
         //Product
         Button productButton = new Button(messages.getString("productButton"));
-        StackPane.setAlignment(productButton, Pos.BOTTOM_CENTER);
-        StackPane.setMargin(productButton, new Insets(0, 0, 40, 0));
         productButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             stage.setScene(showExistingElements(2));
         });
 
         //Store
         Button storeButton = new Button(messages.getString("storeButton"));
-        StackPane.setAlignment(storeButton, Pos.BOTTOM_RIGHT);
-        StackPane.setMargin(storeButton, new Insets(0, 30, 40, 0));
         storeButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             stage.setScene(showExistingElements(3));
         });
@@ -125,7 +124,7 @@ public class NewManager extends ALayout implements WindowSize, Constants {
         hbox.getChildren().addAll(employeeButton, storeButton, productButton); //ADD ELEMENT
         hbox.setSpacing(80);
         hbox.setAlignment(Pos.BOTTOM_CENTER);
-        vbox.getChildren().addAll(ADD_MENUBAR_SCENE(), menuText, hbox);
+        vbox.getChildren().addAll(menuText, hbox);
         vbox.setSpacing(5);
         vbox.setAlignment(Pos.TOP_CENTER);
         vbox.getStyleClass().add("text");
@@ -137,7 +136,7 @@ public class NewManager extends ALayout implements WindowSize, Constants {
         }
 
         Scene createMenuS = new Scene(vbox, WINDOW_X / 1.2, WINDOW_Y / 2.5);
-        createMenuS.getStylesheets().addAll("css/createMenu.css", "css/styles.css");
+        createMenuS.getStylesheets().addAll("Css/createMenu.css", "Css/styles.css");
 
         stage.setScene(createMenuS);
         stage.show();
@@ -446,19 +445,11 @@ public class NewManager extends ALayout implements WindowSize, Constants {
                     System.out.println("aDD ERROR MESSAGE");
             });
 
-            TableColumn manager = new TableColumn(messages.getString("storeManagerLiteral"));
+
+            TableColumn<Store,Employee> manager = new TableColumn(messages.getString("storeManagerLiteral"));
             manager.setPrefWidth(MAX_SIZE_ELEMENT);
             manager.setStyle("-fx-font-size: 16");
-            manager.setCellValueFactory(new PropertyValueFactory<Store, Employee>("storeManager"));
-            manager.setCellFactory(ComboBoxListCell.forListView(employees));
-//            manager.setOnEditCommit((EventHandler<ComboBoxListCell<Employee>>) event -> {
-////                if (storeValidManager(event.getNewValue()) != null)
-////                    event.getTableView().getItems().get(event.getTablePosition().getRow()).setStoreManager((Employee) event.getNewValue());
-////                else
-////                    System.out.println("aDD ERROR MESSAGE");
-//
-//                //FIX THIS
-//            });
+            //Fix manager
 
             table.setItems(stores);
 
@@ -564,14 +555,12 @@ public class NewManager extends ALayout implements WindowSize, Constants {
         //Vbox properties and adding child
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 20, 10, 20));
-        vbox.getChildren().add(ADD_MENUBAR_SCENE());
         vbox.getChildren().addAll(title, table, hbox, hLabels);
 
         return new Scene(vbox, WINDOW_X, WINDOW_Y);
     }
 
 
-    @Override
     protected void saveNewInputSER() throws IOException{
 
         saveNewProductInputSER(PRODUCT_FILE);

@@ -11,6 +11,14 @@ public class Employee extends ID implements Serializable {
     private String employeePhone;
     int employeeId;
 
+    public Employee() {
+        this.employeeName = "test";
+        this.employeeEmail = "Test@test.gov";
+        this.employeePhone = "1234567890";
+        addEmployeeId();
+        employeeId = super.getEmployeeId();
+    }
+
     public Employee(String employeeName, String employeeEmail, String employeePhone) {
         this.employeeName = employeeName;
         this.employeeEmail = employeeEmail;
@@ -46,5 +54,10 @@ public class Employee extends ID implements Serializable {
 
     public void setEmployeePhone(String employeePhone) {
         this.employeePhone = employeePhone;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Employee Name: %s\nEmployee Email: %s\nEmployee Phone: %s\n",getEmployeeName(),getEmployeeEmail(),getEmployeePhone());
     }
 }
