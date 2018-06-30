@@ -7,20 +7,20 @@ import java.io.Serializable;
 public class Store extends ID implements Serializable {
 
     private String storeName;
-    private String storePhoneNum;
+    private String storePhone;
     private String storeAddress;
     private Employee storeManager;
     int storeId;
 
-    public Store(String storeName, String storePhoneNum, String storeAddress, Employee storeManager) {
+    public Store(String storeName, String storePhone, String storeAddress, Employee storeManager) {
         this.storeName = storeName;
-        this.storePhoneNum = storePhoneNum;
+        this.storePhone = storePhone;
         this.storeAddress = storeAddress;
         this.storeManager = storeManager;
         addStoreId();
         storeId = super.getStoreId();
     }
-
+    
     @Override
     public int getStoreId() {
         return storeId;
@@ -34,12 +34,12 @@ public class Store extends ID implements Serializable {
         this.storeName = storeName;
     }
 
-    public String getStorePhoneNum() {
-        return storePhoneNum;
+    public String getStorePhone() {
+        return storePhone;
     }
 
-    public void setStorePhoneNum(String storePhoneNum) {
-        this.storePhoneNum = storePhoneNum;
+    public void setStorePhone(String storePhone) {
+        this.storePhone = storePhone;
     }
 
     public String getStoreAddress() {

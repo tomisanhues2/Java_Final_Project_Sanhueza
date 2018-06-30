@@ -7,6 +7,7 @@ import Resources.ALayout;
 import Resources.Constants;
 import Resources.ID;
 import Resources.WindowSize;
+import com.sun.tools.corba.se.idl.StringGen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -14,11 +15,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
@@ -93,29 +92,34 @@ public class NewManager extends ALayout implements WindowSize, Constants {
 
 
         //Create buttons
+
+        //Employee
         Button employeeButton = new Button(messages.getString("employeeButton"));
         StackPane.setAlignment(employeeButton, Pos.BOTTOM_LEFT);
         StackPane.setMargin(employeeButton, new Insets(0, 0, 40, 30));
         employeeButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            //NEW EMPLOYEE
+            stage.setScene(showExistingElements(1));
         });
 
 
-        Button storeButton = new Button(messages.getString("storeButton"));
-        StackPane.setAlignment(storeButton, Pos.BOTTOM_RIGHT);
-        StackPane.setMargin(storeButton, new Insets(0, 30, 40, 0));
-        storeButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            //NEW STORE
-        });
 
-
+        //Product
         Button productButton = new Button(messages.getString("productButton"));
         StackPane.setAlignment(productButton, Pos.BOTTOM_CENTER);
         StackPane.setMargin(productButton, new Insets(0, 0, 40, 0));
         productButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-//            newProductScene(stage); //NEW PRODUCT
             stage.setScene(showExistingElements(2));
         });
+
+        //Store
+        Button storeButton = new Button(messages.getString("storeButton"));
+        StackPane.setAlignment(storeButton, Pos.BOTTOM_RIGHT);
+        StackPane.setMargin(storeButton, new Insets(0, 30, 40, 0));
+        storeButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            stage.setScene(showExistingElements(3));
+        });
+
+
 
         //Add elements to Pane lists
         hbox.getChildren().addAll(employeeButton, storeButton, productButton); //ADD ELEMENT
@@ -141,29 +145,6 @@ public class NewManager extends ALayout implements WindowSize, Constants {
     }
 
 
-    private void createNewStore() {
-        String storeName;
-        String storePhoneNum;
-        String storeAddress;
-        Employee storeManager;
-
-    }
-
-    private void createNewEmployee() {
-        String employeeName;
-        String employeeEmail;
-        String employeePhone;
-
-
-    }
-
-    private void createNewProduct() {
-        String productName;
-        double productPrice;
-        int productAmount;
-
-
-    }
 
     private Scene showExistingElements(int element) {
 
@@ -177,8 +158,132 @@ public class NewManager extends ALayout implements WindowSize, Constants {
 
         if (element == 1) { //EMPLOYEE
 
+            title.setText(messages.getString("employeeButton"));
+
+            TableColumn id = new TableColumn(messages.getString("idLiteral"));
+            id.setPrefWidth(40);
+            id.setStyle("-fx-font-size: 16");
+            id.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("employeeId"));
+            id.setEditable(false);
+
+            TableColumn name = new TableColumn(messages.getString("employeeNameLiteral"));
+            name.setPrefWidth(MAX_SIZE_ELEMENT);
+            name.setStyle("-fx-font-size: 16");
+            name.setCellValueFactory(new PropertyValueFactory<Employee, String>("employeeName"));
+            name.setCellFactory(TextFieldTableCell.forTableColumn());
+            name.setOnEditCommit((EventHandler<CellEditEvent<Employee, String>>) event -> {
+                if (employeeValidName(event.getNewValue()) != null)
+                    event.getTableView().getItems().get(event.getTablePosition().getRow()).setEmployeeName(event.getNewValue());
+                else
+                    System.out.println("aDD ERROR MESSAGE");
+            });
+
+            TableColumn email = new TableColumn(messages.getString("employeeEmailLiteral"));
+            email.setPrefWidth(MAX_SIZE_ELEMENT);
+            email.setStyle("-fx-font-size: 16");
+            email.setCellValueFactory(new PropertyValueFactory<Employee, String>("employeeEmail"));
+            email.setCellFactory(TextFieldTableCell.forTableColumn());
+            email.setOnEditCommit((EventHandler<CellEditEvent<Employee, String>>) event -> {
+                if (employeeValidEmail(event.getNewValue()) != null)
+                    event.getTableView().getItems().get(event.getTablePosition().getRow()).setEmployeeEmail(event.getNewValue());
+                else
+                    System.out.println("aDD ERROR MESSAGE");
+            });
+
+            TableColumn phone = new TableColumn(messages.getString("employeePhoneLiteral"));
+            phone.setPrefWidth(MAX_SIZE_ELEMENT);
+            phone.setStyle("-fx-font-size: 16");
+            phone.setCellValueFactory(new PropertyValueFactory<Employee, String>("employeePhone"));
+            phone.setCellFactory(TextFieldTableCell.forTableColumn());
+            phone.setOnEditCommit((EventHandler<CellEditEvent<Employee, String>>) event -> {
+                if (employeeValidPhone(event.getNewValue()) != null)
+                    event.getTableView().getItems().get(event.getTablePosition().getRow()).setEmployeePhone(event.getNewValue());
+                else
+                    System.out.println("aDD ERROR MESSAGE");
+            });
+
+            table.setItems(employees);
+
+            TextField newEmployeeName = new TextField();
+            newEmployeeName.setPromptText(messages.getString("employeeNameLiteral"));
+            newEmployeeName.setPrefWidth(210);
+            Text newEmployeeNameLiteral = new Text(messages.getString("employeeNameLiteral"));
+            newEmployeeNameLiteral.setWrappingWidth(210);
+            newEmployeeName.setStyle(NEW_INPUT);
+
+
+            TextField newEmployeeEmail = new TextField();
+            newEmployeeEmail.setPromptText(messages.getString("employeeEmailLiteral"));
+            newEmployeeEmail.setPrefWidth(210);
+            Text newEmployeeEmailLiteral = new Text(messages.getString("employeeEmailLiteral"));
+            newEmployeeEmailLiteral.setWrappingWidth(210);
+            newEmployeeEmail.setStyle(NEW_INPUT);
+
+            TextField newEmployeePhone = new TextField();
+            newEmployeePhone.setPromptText(messages.getString("employeePhoneLiteral"));
+            newEmployeePhone.setPrefWidth(210);
+            Text newEmployeePhoneLiteral = new Text(messages.getString("employeePhoneLiteral"));
+            newEmployeePhoneLiteral.setWrappingWidth(210);
+            newEmployeePhone.setStyle(NEW_INPUT);
+
+            Button addEmployee = new Button("Add");
+            addEmployee.setOnAction(event -> {
+                if (employeeValidName(newEmployeeName.getText()) != null &&
+                        employeeValidEmail(newEmployeeEmail.getText()) != null &&
+                        employeeValidPhone(newEmployeePhone.getText()) != null) {
+
+                    employees.add(new Employee(
+                            newEmployeeName.getText(), newEmployeeEmail.getText(),newEmployeePhone.getText()));
+
+
+                    newEmployeeName.clear();
+                    newEmployeeEmail.clear();
+                    newEmployeePhone.clear();
+
+
+                    newEmployeeName.setStyle(NEW_INPUT);
+                    newEmployeeEmail.setStyle(NEW_INPUT);
+                    newEmployeePhone.setStyle(NEW_INPUT);
+
+
+                } else {
+
+                    if (employeeValidName(newEmployeeName.getText()) == null) {
+                        newEmployeeName.clear();
+                        newEmployeeName.setStyle(INVALID_INPUT);
+                    } else {
+                        newEmployeeName.setStyle(VALID_INPUT);
+                    }
+                    if (employeeValidEmail(newEmployeeEmail.getText()) == null) {
+                        newEmployeeEmail.clear();
+                        newEmployeeEmail.setStyle(INVALID_INPUT);
+                    } else {
+                        newEmployeeEmail.setStyle(VALID_INPUT);
+                    }
+                    if (employeeValidPhone(newEmployeePhone.getText()) == null) {
+                        newEmployeePhone.clear();
+                        newEmployeePhone.setStyle(INVALID_INPUT);
+                    } else {
+                        newEmployeePhone.setStyle(VALID_INPUT);
+                    }
+
+                }
+            });
+
+
+            //Add spacing and elements to HORIZONTAL
+            hbox.getChildren().addAll(newEmployeeName, newEmployeeEmail, newEmployeePhone, addEmployee);
+            hbox.setSpacing(5);
+            hLabels.getChildren().addAll(newEmployeeNameLiteral, newEmployeeEmailLiteral, newEmployeePhoneLiteral);
+            hLabels.setSpacing(5);
+
+
+            table.getColumns().addAll(id, name, email, phone);
+
+
         } else if (element == 2) { //PRODUCT
             title.setText(messages.getString("productButton"));
+
             TableColumn id = new TableColumn(messages.getString("idLiteral"));
             id.setPrefWidth(40);
             id.setStyle("-fx-font-size: 16");
@@ -192,7 +297,6 @@ public class NewManager extends ALayout implements WindowSize, Constants {
             name.setCellValueFactory(new PropertyValueFactory<Product, String>("productName"));
             name.setCellFactory(TextFieldTableCell.forTableColumn());
             name.setOnEditCommit((EventHandler<CellEditEvent<Product, String>>) event -> {
-                System.out.println("Clicked");
                 if (productValidName(event.getNewValue()) != null)
                     event.getTableView().getItems().get(event.getTablePosition().getRow()).setProductName(event.getNewValue());
                 else {
@@ -205,7 +309,6 @@ public class NewManager extends ALayout implements WindowSize, Constants {
             price.setCellValueFactory(new PropertyValueFactory<Product, Double>("productPrice"));
             price.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
             price.setOnEditCommit((EventHandler<CellEditEvent<Product, Double>>) event -> {
-                System.out.println("Clicked");
                 if (productValidPrice(event.getNewValue().toString()) != -1)
                      event.getTableView().getItems().get(event.getTablePosition().getRow()).setProductPrice(event.getNewValue());
                 else
@@ -218,8 +321,7 @@ public class NewManager extends ALayout implements WindowSize, Constants {
             amount.setCellValueFactory(new PropertyValueFactory<Product, Double>("productAmount"));
             amount.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
             amount.setOnEditCommit((EventHandler<CellEditEvent<Product, Integer>>) event -> {
-                System.out.println("Clicked");
-                if (productValidAmount(event.getNewValue().toString()) != -1)
+                 if (productValidAmount(event.getNewValue().toString()) != -1)
                     event.getTableView().getItems().get(event.getTablePosition().getRow()).setProductAmount(event.getNewValue());
                 else
                     event.getTablePosition().getTableView().setStyle(INVALID_INPUT);
@@ -299,6 +401,160 @@ public class NewManager extends ALayout implements WindowSize, Constants {
 
         } else if (element == 3) { //STORE
 
+            title.setText(messages.getString("storeButton"));
+
+            TableColumn id = new TableColumn(messages.getString("idLiteral"));
+            id.setPrefWidth(40);
+            id.setStyle("-fx-font-size: 16");
+            id.setCellValueFactory(new PropertyValueFactory<Store, Integer>("storeId"));
+            id.setEditable(false);
+
+            TableColumn name = new TableColumn(messages.getString("storeNameLiteral"));
+            name.setPrefWidth(MAX_SIZE_ELEMENT);
+            name.setStyle("-fx-font-size: 16");
+            name.setCellValueFactory(new PropertyValueFactory<Store, String>("storeName"));
+            name.setCellFactory(TextFieldTableCell.forTableColumn());
+            name.setOnEditCommit((EventHandler<CellEditEvent<Store, String>>) event -> {
+                if (storeValidName(event.getNewValue()) != null)
+                    event.getTableView().getItems().get(event.getTablePosition().getRow()).setStoreName(event.getNewValue());
+                else
+                    System.out.println("aDD ERROR MESSAGE");
+            });
+
+            TableColumn phone = new TableColumn(messages.getString("storePhoneLiteral"));
+            phone.setPrefWidth(MAX_SIZE_ELEMENT);
+            phone.setStyle("-fx-font-size: 16");
+            phone.setCellValueFactory(new PropertyValueFactory<Store, String>("storePhone"));
+            phone.setCellFactory(TextFieldTableCell.forTableColumn());
+            phone.setOnEditCommit((EventHandler<CellEditEvent<Store, String>>) event -> {
+                if (storeValidPhone(event.getNewValue()) != null)
+                    event.getTableView().getItems().get(event.getTablePosition().getRow()).setStorePhone(event.getNewValue());
+                else
+                    System.out.println("aDD ERROR MESSAGE");
+            });
+
+
+            TableColumn address = new TableColumn(messages.getString("storeAddressLiteral"));
+            address.setPrefWidth(MAX_SIZE_ELEMENT);
+            address.setStyle("-fx-font-size: 16");
+            address.setCellValueFactory(new PropertyValueFactory<Store, String>("storeAddress"));
+            address.setCellFactory(TextFieldTableCell.forTableColumn());
+            address.setOnEditCommit((EventHandler<CellEditEvent<Store, String>>) event -> {
+                if (storeValidAddress(event.getNewValue()) != null)
+                    event.getTableView().getItems().get(event.getTablePosition().getRow()).setStoreAddress(event.getNewValue());
+                else
+                    System.out.println("aDD ERROR MESSAGE");
+            });
+
+            TableColumn manager = new TableColumn(messages.getString("storeManagerLiteral"));
+            manager.setPrefWidth(MAX_SIZE_ELEMENT);
+            manager.setStyle("-fx-font-size: 16");
+            manager.setCellValueFactory(new PropertyValueFactory<Store, Employee>("storeManager"));
+            manager.setCellFactory(ComboBoxListCell.forListView(employees));
+//            manager.setOnEditCommit((EventHandler<ComboBoxListCell<Employee>>) event -> {
+////                if (storeValidManager(event.getNewValue()) != null)
+////                    event.getTableView().getItems().get(event.getTablePosition().getRow()).setStoreManager((Employee) event.getNewValue());
+////                else
+////                    System.out.println("aDD ERROR MESSAGE");
+//
+//                //FIX THIS
+//            });
+
+            table.setItems(stores);
+
+            TextField newStoreName = new TextField();
+            newStoreName.setPromptText(messages.getString("storeNameLiteral"));
+            newStoreName.setPrefWidth(210);
+            Text newStoreNameLiteral = new Text(messages.getString("storeNameLiteral"));
+            newStoreNameLiteral.setWrappingWidth(210);
+            newStoreName.setStyle(NEW_INPUT);
+
+
+            TextField newStorePhone = new TextField();
+            newStorePhone.setPromptText(messages.getString("storePhoneLiteral"));
+            newStorePhone.setPrefWidth(210);
+            Text newStorePhoneLiteral = new Text(messages.getString("storePhoneLiteral"));
+            newStorePhoneLiteral.setWrappingWidth(210);
+            newStorePhone.setStyle(NEW_INPUT);
+            
+            TextField newStoreAddress = new TextField();
+            newStoreAddress.setPromptText(messages.getString("storeAddressLiteral"));
+            newStoreAddress.setPrefWidth(210);
+            Text newStoreAddressLiteral = new Text(messages.getString("storeAddressLiteral"));
+            newStoreAddressLiteral.setWrappingWidth(210);
+            newStoreAddress.setStyle(NEW_INPUT);
+
+            TextField newStoreManager = new TextField();
+            newStoreManager.setPromptText(messages.getString("storeManagerLiteral"));
+            newStoreManager.setPrefWidth(210);
+            Text newStoreManagerLiteral = new Text(messages.getString("storeManagerLiteral"));
+            newStoreManagerLiteral.setWrappingWidth(210);
+            newStoreManager.setStyle(NEW_INPUT);
+
+            Button addStore = new Button("Add");
+            addStore.setOnAction(event -> {
+                if (storeValidName(newStoreName.getText()) != null &&
+                        storeValidPhone(newStorePhone.getText()) != null &&
+                        storeValidAddress(newStoreAddress.getText()) != null &&
+                        storeValidManager(newStoreManager.getText()) != null ){
+
+                    stores.add(new Store(newStoreName.getText(), newStorePhone.getText(),newStoreAddress.getText(),employees.get(1)));
+
+
+                    newStoreName.clear();
+                    newStorePhone.clear();
+                    newStoreAddress.clear();
+                    newStoreManager.clear();
+
+
+                    newStoreName.setStyle(NEW_INPUT);
+                    newStorePhone.setStyle(NEW_INPUT);
+                    newStoreAddress.setStyle(NEW_INPUT);
+                    newStoreManager.setStyle(NEW_INPUT);
+
+
+                } else {
+
+                    if (storeValidName(newStoreName.getText()) == null) {
+                        newStoreName.clear();
+                        newStoreName.setStyle(INVALID_INPUT);
+                    } else {
+                        newStoreName.setStyle(VALID_INPUT);
+                    }
+                    if (storeValidPhone(newStorePhone.getText()) == null) {
+                        newStorePhone.clear();
+                        newStorePhone.setStyle(INVALID_INPUT);
+                    } else {
+                        newStorePhone.setStyle(VALID_INPUT);
+                    }
+                    if (storeValidAddress(newStoreAddress.getText()) == null) {
+                        newStoreAddress.clear();
+                        newStoreAddress.setStyle(INVALID_INPUT);
+                    } else {
+                        newStoreAddress.setStyle(VALID_INPUT);
+                    }
+
+//                    if (storeValidManager(newStoreManager.getText() == null)) {
+//                        newStoreManager.clear();
+//                        newStoreManager.setStyle(INVALID_INPUT);
+//                    } else {
+//                        newStoreManager.setStyle(VALID_INPUT);
+//                    }
+
+
+
+                }
+            });
+
+
+            //Add spacing and elements to HORIZONTAL
+            hbox.getChildren().addAll(newStoreName, newStorePhone, newStoreAddress, newStoreManager,addStore);
+            hbox.setSpacing(5);
+            hLabels.getChildren().addAll(newStoreNameLiteral, newStorePhoneLiteral,newStoreAddressLiteral,newStoreManagerLiteral);
+            hLabels.setSpacing(5);
+
+
+            table.getColumns().addAll(id, name,phone,address,manager);
         }
 
         //Title
@@ -314,24 +570,6 @@ public class NewManager extends ALayout implements WindowSize, Constants {
         return new Scene(vbox, WINDOW_X, WINDOW_Y);
     }
 
-
-    private String productValidName(String s) {
-        if (!s.isEmpty() && s.matches("^[a-zA-Z ]+$"))
-            return s;
-        return null;
-    }
-
-    private double productValidPrice(String s) {
-        if (!s.isEmpty() && s.matches("^[0-9]+(\\.[0-9]{1,2})?$"))
-            return Double.parseDouble(s);
-        return -1;
-    }
-
-    private int productValidAmount(String s) {
-        if (!s.isEmpty() && s.matches("^[0-9]+$"))
-            return Integer.parseInt(s);
-        return -1;
-    }
 
     @Override
     protected void saveNewInputSER() throws IOException{

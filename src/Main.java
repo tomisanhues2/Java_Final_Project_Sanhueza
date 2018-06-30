@@ -48,6 +48,7 @@ public class Main extends ALayout implements WindowSize, Constants {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         VBox vbox = new VBox();
         HBox hbox = new HBox();
 
@@ -55,6 +56,7 @@ public class Main extends ALayout implements WindowSize, Constants {
         Text menuText = new Text("Main menu");
         menuText.setId("menuText");
         TITLE_ALIGN_CENTER(menuText);
+
         //Create buttons
         Button existingFileButton = new Button();
         existingFileButton.setText("Use existing .xlsx file");
@@ -63,6 +65,7 @@ public class Main extends ALayout implements WindowSize, Constants {
             existingFileButton.setDisable(true);
 
         });
+
         existingFileButton.setId("existingButton");
 
         Button createNewButton = new Button();
