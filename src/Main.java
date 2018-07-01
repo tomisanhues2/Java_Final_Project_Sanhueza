@@ -9,8 +9,17 @@ import Resources.Constants;
 import Resources.IDimensions;
 import Resources.WindowSize;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -38,7 +47,6 @@ public class Main extends ALayout implements WindowSize, Constants, IDimensions 
         }
     }
 
-
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -51,6 +59,7 @@ public class Main extends ALayout implements WindowSize, Constants, IDimensions 
         stage.setTitle("Store Manager");
         stage.show();
     }
+
 
     private static void createNewFiles() throws IOException{
 

@@ -35,9 +35,8 @@ public class MainMenuController implements Constants {
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root1 =fxmlLoader.load(getClass().getClassLoader().getResource("res/NewEvent.fxml"),messages);
               stage = (Stage)mainMenuNew.getScene().getWindow();
-              stage.close();
              stage.setScene(new Scene(root1));
-            stage.show();
+
 
         } catch (IOException e) {
             e.printStackTrace();

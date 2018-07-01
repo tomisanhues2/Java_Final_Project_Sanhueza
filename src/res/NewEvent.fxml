@@ -10,9 +10,9 @@
    <center>
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0" BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#employeeButton" prefWidth="110.0" text="%employeeButton" />
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#productButton" prefWidth="110.0" text="%productButton" />
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#storeButton" prefWidth="110.0" text="%storeButton" />
+            <Button fx:id="employeeButton" alignment="CENTER" mnemonicParsing="false" onAction="#employeeButton" prefWidth="110.0" text="%employeeButton" />
+            <Button fx:id="productButton" alignment="CENTER" mnemonicParsing="false" onAction="#productButton" prefWidth="110.0" text="%productButton" />
+            <Button fx:id="storeButton" alignment="CENTER" mnemonicParsing="false" onAction="#storeButton" prefWidth="110.0" text="%storeButton" />
          </children>
       </HBox>
    </center>
