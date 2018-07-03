@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="700.0" xmlns="http://javafx.com/javafx/8" fx:controller="controller.ProductMenuController"
-            xmlns:fx="http://javafx.com/javafx/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.ProductMenuController">
    <center>
-      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+      <HBox fx:id="placeholderHBox" alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
             <TableView editable="true" prefHeight="400.0">
               <columns>
                 <TableColumn editable="false" prefWidth="40.0" resizable="false" text="%idLiteral" />
-                <TableColumn onEditCommit="#productNameEdit" prefWidth="200.0" resizable="false" text="%productNameLiteral" />
-                  <TableColumn onEditCommit="#productPriceEdit" prefWidth="200.0" resizable="false" text="%productPriceLiteral" />
-                  <TableColumn onEditCommit="#productAmountEdit" prefWidth="200.0" resizable="false" text="%productAmountLiteral" />
+                <TableColumn onEditCommit="#productNameEdit" prefWidth="230.0" resizable="false" text="%productNameLiteral" />
+                  <TableColumn onEditCommit="#productPriceEdit" prefWidth="230.0" resizable="false" text="%productPriceLiteral" />
+                  <TableColumn onEditCommit="#productAmountEdit" prefWidth="230.0" resizable="false" text="%productAmountLiteral" />
               </columns>
             </TableView>
          </children>
@@ -39,6 +41,9 @@
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
                   </Label>
                   <TextField />
                </children>
@@ -55,6 +60,9 @@
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
                   </Label>
                   <TextField />
                </children>
@@ -71,6 +79,9 @@
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
                   </Label>
                   <TextField />
                </children>
@@ -80,7 +91,7 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="60.0" spacing="10.0">
                <children>
-                  <Label text="%productNameLiteral" visible="false">
+                  <Label text="%addButton" visible="false">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -88,7 +99,7 @@
                         <Insets />
                      </opaqueInsets>
                   </Label>
-                  <Button mnemonicParsing="false" text="Button" />
+                  <Button mnemonicParsing="false" text="%addButton" />
                </children>
                <padding>
                   <Insets left="5.0" right="5.0" />
@@ -100,4 +111,7 @@
          </BorderPane.margin>
       </HBox>
    </bottom>
+   <top>
+      <fx:include source="MenuBar.fxml"></fx:include>
+   </top>
 </BorderPane>

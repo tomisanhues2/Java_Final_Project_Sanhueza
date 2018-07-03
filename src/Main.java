@@ -53,7 +53,7 @@ public class Main extends ALayout implements WindowSize, Constants, IDimensions 
         FXMLLoader mainMenu = new FXMLLoader();
        Parent root = mainMenu.load(getClass().getClassLoader().getResource("res/MainMenu.fxml"),messages);
 
-        Scene scene = new Scene(root,400,140);
+        CustomScene scene = new CustomScene(root,true);
 
         stage.setScene(scene);
         stage.setTitle("Store Manager");

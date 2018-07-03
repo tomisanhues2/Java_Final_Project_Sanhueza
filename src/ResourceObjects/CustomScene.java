@@ -19,7 +19,7 @@ public class CustomScene extends Scene implements WindowSize, Constants {
     }
 
     public CustomScene(Parent root, Boolean isMenuScene) {
-        super(root,WINDOW_X,WINDOW_Y/2.5);
+        super(root,WINDOW_X,WINDOW_Y);
         applyCustomStyles();
     }
 
@@ -27,7 +27,4 @@ public class CustomScene extends Scene implements WindowSize, Constants {
 
     }
 
-    private void setSize() {
-
-    }
 }

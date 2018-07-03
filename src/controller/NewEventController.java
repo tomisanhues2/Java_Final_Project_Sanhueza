@@ -1,40 +1,49 @@
 package controller;
 
+import ResourceObjects.CustomScene;
 import Resources.Constants;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class NewEventController implements Constants {
 
-    @FXML public Button employeeButton;
-    @FXML public Button productButton;
-    @FXML public Button storeButton;
+    @FXML
+    public HBox placeHolderHBox;
 
-    public void employeeButton(ActionEvent event) {
-    }
-
-    public void productButton(ActionEvent event) {
-        Stage stage;
-
+    public void buttonAction(ActionEvent event) {
         try {
+
+            Stage stage;
             FXMLLoader fxmlLoader = new FXMLLoader();
-            Parent root1 = fxmlLoader.load(getClass().getClassLoader().getResource("res/ProductView.fxml"),messages);
-            stage = (Stage) productButton.getScene().getWindow();
-            stage.setScene(new Scene(root1));
+            Parent newRoot = null;
+
+            stage = (Stage) placeHolderHBox.getScene().getWindow();
+
+            String buttonPressed = ((Button) event.getSource()).getText();
+
+            switch (buttonPressed) {
+                case "Employees List":
+                    newRoot = fxmlLoader.load(getClass().getClassLoader().getResource("res/EmployeeView.fxml"), messages);
+                    break;
+                case "Products List":
+                    newRoot = fxmlLoader.load(getClass().getClassLoader().getResource("res/ProductView.fxml"), messages);
+                    break;
+                case "Stores List":
+                    newRoot = fxmlLoader.load(getClass().getClassLoader().getResource("res/StoreView.fxml"), messages);
+                    break;
+            }
+
+            stage.setScene(new CustomScene(newRoot));
 
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
-    }
-
-    public void storeButton(ActionEvent event) {
-
     }
 }
