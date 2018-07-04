@@ -13,7 +13,7 @@ public class Product extends ID implements Serializable {
 
     public Product(String productName, double productPrice, int productAmount) {
         this.productName = productName;
-        this.productPrice = Math.round(productPrice*100.0)/100.0;
+        this.productPrice = Math.round(productPrice * 100.0) / 100.0;
         this.productAmount = productAmount;
         addProductId();
         productId = super.getProductId();
@@ -51,6 +51,11 @@ public class Product extends ID implements Serializable {
 
     @Override
     public String toString() {
-        return "-----------------------------------\n" + String.format("Objects.Product ID: %d\nObjects.Product Name: %s\nObjects.Product Price per bag: %.2f\nObjects.Product Quantity per bag: %d\n",productId,getProductName(),getProductPrice(),getProductAmount()) + "-----------------------------------\n";
+        return "-----------------------------------\n" + String.format(
+                "Objects.Product ID: %d\nObjects.Product Name: %s\nObjects" +
+                        ".Product Price per bag: %.2f\nObjects.Product " +
+                        "Quantity per bag: %d\n",
+                productId, getProductName(), getProductPrice(),
+                getProductAmount()) + "-----------------------------------\n";
     }
 }

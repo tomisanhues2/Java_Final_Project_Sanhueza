@@ -42,7 +42,8 @@ public class ReaderManager extends JPanel {
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
                 textArea.append("\nProcessing: " + file.getName() + ".\n");
-                textArea.append("File is in a valid format... Verifying contents\n");
+                textArea.append(
+                        "File is in a valid format... Verifying contents\n");
                 selectedFile = file;
                 fileManager();
                 frame.setVisible(false);
@@ -85,30 +86,42 @@ public class ReaderManager extends JPanel {
                     System.out.println(records);
                     for (int i = 2; i <= records; i++) {
                         System.out.println(i);
-                        if (titleRow.getCell(1).getStringCellValue().equalsIgnoreCase("ID")) {
+                        if (titleRow.getCell(
+                                1).getStringCellValue().equalsIgnoreCase(
+                                "ID")) {
 
                         }
 
-                        if (titleRow.getCell(2).getStringCellValue().equalsIgnoreCase("Objects.Product Name")) {
-                            productName = s.getRow(i).getCell(2).getStringCellValue();
+                        if (titleRow.getCell(
+                                2).getStringCellValue().equalsIgnoreCase(
+                                "Objects.Product Name")) {
+                            productName = s.getRow(i).getCell(
+                                    2).getStringCellValue();
                         }
 
-                        if (titleRow.getCell(3).getStringCellValue().equalsIgnoreCase("Objects.Product price per bag")) {
-                            productPrice = s.getRow(i).getCell(3).getNumericCellValue();
+                        if (titleRow.getCell(
+                                3).getStringCellValue().equalsIgnoreCase(
+                                "Objects.Product price per bag")) {
+                            productPrice = s.getRow(i).getCell(
+                                    3).getNumericCellValue();
                         }
 
-                        if (titleRow.getCell(4).getStringCellValue().equalsIgnoreCase("Objects.Product quantity per bag")) {
-                            productAmount = (int) s.getRow(i).getCell(4).getNumericCellValue();
+                        if (titleRow.getCell(
+                                4).getStringCellValue().equalsIgnoreCase(
+                                "Objects.Product quantity per bag")) {
+                            productAmount = (int) s.getRow(i).getCell(
+                                    4).getNumericCellValue();
                         }
 
-                        products.add(new Product(productName,productPrice,productAmount));
+                        products.add(new Product(productName, productPrice,
+                                productAmount));
                     }
                 }
             }
 
-           for (Product p : products) {
-               System.out.println(p);
-           }
+            for (Product p : products) {
+                System.out.println(p);
+            }
 
 
         } catch (IOException ex) {

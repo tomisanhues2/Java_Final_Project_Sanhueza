@@ -20,17 +20,22 @@ public class MainMenuController implements Constants {
     public Button mainMenuExcel;
 
 
-    @FXML protected void mainMenuExcelFileButton(ActionEvent event) {
+    @FXML
+    protected void mainMenuExcelFileButton(ActionEvent event) {
         new ReaderManager();
     }
-    @FXML protected void mainMenuCreateFileButton(ActionEvent event) {
-//        new NewManager();
+
+    @FXML
+    protected void mainMenuCreateFileButton(ActionEvent event) {
+        //        new NewManager();
         Stage stage;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            Parent root1 = fxmlLoader.load(getClass().getClassLoader().getResource("res/NewEvent.fxml"),messages);
-              stage = (Stage)mainMenuNew.getScene().getWindow();
-             stage.setScene(new CustomScene(root1,true));
+            Parent root1 = fxmlLoader.load(
+                    getClass().getClassLoader().getResource(
+                            "res/NewEvent.fxml"), messages);
+            stage = (Stage) mainMenuNew.getScene().getWindow();
+            stage.setScene(new CustomScene(root1, true));
 
 
         } catch (IOException e) {
@@ -38,7 +43,8 @@ public class MainMenuController implements Constants {
         }
     }
 
-    @FXML public void menuBarButton(ActionEvent event) {
+    @FXML
+    public void menuBarButton(ActionEvent event) {
 
     }
 }

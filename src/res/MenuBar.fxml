@@ -8,25 +8,32 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<HBox prefWidth="800.0" BorderPane.alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="controller.MenuBarController">
+<HBox prefWidth="800.0" BorderPane.alignment="CENTER"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.MenuBarController">
     <children>
         <ToolBar prefHeight="40.0" HBox.hgrow="ALWAYS">
             <items>
-                <Button mnemonicParsing="false" prefWidth="300.0" text="Button" visible="false" />
+                <Button mnemonicParsing="false" prefWidth="280" text="Button"
+                        visible="false"/>
                 <StackPane prefHeight="28.0" prefWidth="200.0">
                     <children>
-                        <Label text="%toolBarText" textFill="#5b1818" />
+                        <Label text="%toolBarText" textFill="#5b1818"/>
                     </children>
                 </StackPane>
-            <StackPane alignment="CENTER_RIGHT" layoutX="73.0" layoutY="10.0" prefHeight="28.0" prefWidth="300.0">
-               <children>
-                      <Button mnemonicParsing="false" onAction="#menuBarButton" text="%menuBarSaveButton" />
-               </children>
-            </StackPane>
+                <StackPane alignment="CENTER_RIGHT" layoutX="73.0"
+                           layoutY="10.0" prefHeight="28.0" prefWidth="280">
+                    <children>
+                        <Button mnemonicParsing="false"
+                                onAction="#menuBarButton"
+                                text="%menuBarSaveButton"/>
+                    </children>
+                </StackPane>
             </items>
-         <HBox.margin>
-            <Insets bottom="20.0" />
-         </HBox.margin>
+            <HBox.margin>
+                <Insets bottom="20.0"/>
+            </HBox.margin>
         </ToolBar>
     </children>
 </HBox>

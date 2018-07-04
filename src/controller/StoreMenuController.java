@@ -5,7 +5,6 @@ import javafx.scene.control.TableColumn;
 public class StoreMenuController {
 
 
-
     public void storeNameEdit(TableColumn.CellEditEvent cellEditEvent) {
     }
 

@@ -13,9 +13,9 @@ public class CustomButton extends Button implements WindowSize {
     }
 
     private void autoApplyStyles() {
-        setMinSize(MAX_SIZE_ELEMENT*1.3,WINDOW_Y/8);
-        setPrefSize(MAX_SIZE_ELEMENT*1.3,WINDOW_Y/8);
-        setMaxSize(MAX_SIZE_ELEMENT*1.3,WINDOW_Y/8);
+        setMinSize(MAX_SIZE_ELEMENT * 1.3, WINDOW_Y / 8);
+        setPrefSize(MAX_SIZE_ELEMENT * 1.3, WINDOW_Y / 8);
+        setMaxSize(MAX_SIZE_ELEMENT * 1.3, WINDOW_Y / 8);
         setOnMouseClicked(event -> fire());
         setFocused(false);
     }

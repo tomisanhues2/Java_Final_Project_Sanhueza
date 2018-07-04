@@ -37,9 +37,9 @@ public class CustomBorderPane extends BorderPane implements Constants {
         CustomTitle customTitle1 = new CustomTitle("RIGHT");
 
         customTitle.setAlignment(Pos.CENTER);
-        hbox.getChildren().addAll(customTitle,customTitle1);
-        CustomHBox.setHgrow(customTitle1,Priority.ALWAYS);
-        CustomHBox.setMargin(customTitle1,new Insets(0,10,0,0));
+        hbox.getChildren().addAll(customTitle, customTitle1);
+        CustomHBox.setHgrow(customTitle1, Priority.ALWAYS);
+        CustomHBox.setMargin(customTitle1, new Insets(0, 10, 0, 0));
         setTop(hbox);
     }
     /*private void createHeaderBar(String menuName) {
@@ -47,13 +47,15 @@ public class CustomBorderPane extends BorderPane implements Constants {
         StackPane menuButton = new StackPane();
 
 
-        ClickableMenu clickableMenu = new ClickableMenu(messages.getString("menuBarSaveButton"));
+        ClickableMenu clickableMenu = new ClickableMenu(messages.getString
+        ("menuBarSaveButton"));
         stackPane.getChildren().add(clickableMenu);
         stackPane.setAlignment(Pos.CENTER_RIGHT);
 
 
 
-        ClickableMenu clickableMenu = new ClickableMenu(messages.getString("menuBarSaveButton"));
+        ClickableMenu clickableMenu = new ClickableMenu(messages.getString
+        ("menuBarSaveButton"));
         clickableMenu.setOnAction(event -> {
 //            try {
 //                saveNewInputSER();

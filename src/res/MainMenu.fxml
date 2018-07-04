@@ -4,19 +4,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
-   <center>
-      <HBox alignment="TOP_CENTER" spacing="20.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="mainMenuExcel" mnemonicParsing="false" onAction="#mainMenuExcelFileButton" prefWidth="160.0" text="%mainMenuExcelFileButton"/>
-            <Button fx:id="mainMenuNew" mnemonicParsing="false" onAction="#mainMenuCreateFileButton" prefWidth="160.0" text="%mainMenuCreateFileButton" />
-         </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </HBox>
-   </center>
+<BorderPane maxHeight="140" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.MainMenuController">
+    <center>
+        <HBox alignment="TOP_CENTER" spacing="20.0"
+              BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="mainMenuExcel" mnemonicParsing="false"
+                        onAction="#mainMenuExcelFileButton" prefWidth="320"
+                        text="%mainMenuExcelFileButton"/>
+                <Button fx:id="mainMenuNew" mnemonicParsing="false"
+                        onAction="#mainMenuCreateFileButton" prefWidth="320"
+                        text="%mainMenuCreateFileButton"/>
+            </children>
+            <BorderPane.margin>
+                <Insets/>
+            </BorderPane.margin>
+        </HBox>
+    </center>
     <top>
-   <fx:include source="MenuBar.fxml"></fx:include>
+        <fx:include source="MenuBar.fxml"></fx:include>
     </top>
 </BorderPane>

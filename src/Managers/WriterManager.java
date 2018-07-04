@@ -28,7 +28,8 @@ public class WriterManager {
             addProductTemplate(product);
 
 
-            FileOutputStream fileOut = fileOut = new FileOutputStream("File/FinalProject-Sanhueza.xlsx");
+            FileOutputStream fileOut = fileOut = new FileOutputStream(
+                    "File/FinalProject-Sanhueza.xlsx");
             workbook.write(fileOut);
             fileOut.close();
             workbook.close();
@@ -60,7 +61,9 @@ public class WriterManager {
 
                 case 3: //Add formatting to Currency
                     CellStyle currencyStyle = workbook.createCellStyle();
-                    currencyStyle.setDataFormat(workbook.createDataFormat().getFormat("$#,##0.00;-$#,##0.00"));
+                    currencyStyle.setDataFormat(
+                            workbook.createDataFormat().getFormat(
+                                    "$#,##0.00;-$#,##0.00"));
 
                     sheet.setDefaultColumnStyle(i, currencyStyle);
                     break;
@@ -96,7 +99,8 @@ public class WriterManager {
 
 
                     Cell cellQuantity = row.createCell(4);
-                    cellQuantity.setCellValue("Objects.Product quantity per bag");
+                    cellQuantity.setCellValue(
+                            "Objects.Product quantity per bag");
                     cellQuantity.setCellStyle(headerCellStyle);
                     break;
             }

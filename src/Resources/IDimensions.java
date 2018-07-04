@@ -8,5 +8,5 @@ public interface IDimensions {
 
     int VERTICAL_SPACING_VBOX = 10;
 
-    Font TITLE_FONT = new Font("Courier",30);
+    Font TITLE_FONT = new Font("Courier", 30);
 }

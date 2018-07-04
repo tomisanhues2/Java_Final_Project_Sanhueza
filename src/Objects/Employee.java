@@ -19,7 +19,8 @@ public class Employee extends ID implements Serializable {
         employeeId = super.getEmployeeId();
     }
 
-    public Employee(String employeeName, String employeeEmail, String employeePhone) {
+    public Employee(String employeeName, String employeeEmail, String
+            employeePhone) {
         this.employeeName = employeeName;
         this.employeeEmail = employeeEmail;
         this.employeePhone = employeePhone;
@@ -58,6 +59,8 @@ public class Employee extends ID implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Employee Name: %s\nEmployee Email: %s\nEmployee Phone: %s\n",getEmployeeName(),getEmployeeEmail(),getEmployeePhone());
+        return String.format(
+                "Employee Name: %s\nEmployee Email: %s\nEmployee Phone: %s\n",
+                getEmployeeName(), getEmployeeEmail(), getEmployeePhone());
     }
 }

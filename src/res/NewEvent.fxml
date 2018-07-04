@@ -4,17 +4,26 @@
 <?import javafx.scene.layout.*?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" fx:controller="controller.NewEventController" xmlns:fx="http://javafx.com/javafx/1">
-   <center>
-      <HBox fx:id="placeHolderHBox" alignment="TOP_CENTER" prefWidth="200.0" spacing="25.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#buttonAction" prefWidth="120.0" text="%employeeButton" />
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#buttonAction" prefWidth="120.0" text="%productButton" />
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#buttonAction" prefWidth="120.0" text="%storeButton" />
-         </children>
-      </HBox>
-   </center>
-   <top>
-      <fx:include source="MenuBar.fxml"></fx:include>
-   </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" xmlns="http://javafx.com/javafx/8"
+            fx:controller="controller.NewEventController"
+            xmlns:fx="http://javafx.com/javafx/1">
+    <center>
+        <HBox fx:id="placeHolderHBox" alignment="TOP_CENTER" spacing="25.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button alignment="CENTER" mnemonicParsing="false"
+                        onAction="#buttonAction" prefWidth="220"
+                        text="%employeeButton"/>
+                <Button alignment="CENTER" mnemonicParsing="false"
+                        onAction="#buttonAction" prefWidth="220"
+                        text="%productButton"/>
+                <Button alignment="CENTER" mnemonicParsing="false"
+                        onAction="#buttonAction" prefWidth="220"
+                        text="%storeButton"/>
+            </children>
+        </HBox>
+    </center>
+    <top>
+        <fx:include source="MenuBar.fxml"></fx:include>
+    </top>
 </BorderPane>

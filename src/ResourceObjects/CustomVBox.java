@@ -27,6 +27,4 @@ public class CustomVBox extends VBox implements IDimensions, Constants {
     }
 
 
-
-
 }

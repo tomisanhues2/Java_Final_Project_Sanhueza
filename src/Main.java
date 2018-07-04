@@ -27,12 +27,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class Main extends ALayout implements WindowSize, Constants, IDimensions {
+public class Main extends ALayout implements WindowSize, Constants,
+        IDimensions {
 
 
-    //https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#introlimitations
+    //https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref
+    // .html#introlimitations
 
-    final static String RANDOM_PHONE_NUM = String.format("%d-%d-%d",new Random().nextInt(899) + 100,
+    final static String RANDOM_PHONE_NUM = String.format("%d-%d-%d",
+            new Random().nextInt(899) + 100,
             new Random().nextInt(899) + 100,
             new Random().nextInt(8999) + 1000);
 
@@ -51,9 +54,11 @@ public class Main extends ALayout implements WindowSize, Constants, IDimensions 
     public void start(Stage stage) throws Exception {
 
         FXMLLoader mainMenu = new FXMLLoader();
-       Parent root = mainMenu.load(getClass().getClassLoader().getResource("res/MainMenu.fxml"),messages);
+        Parent root = mainMenu.load(
+                getClass().getClassLoader().getResource("res/MainMenu.fxml"),
+                messages);
 
-        CustomScene scene = new CustomScene(root,true);
+        CustomScene scene = new CustomScene(root, true);
 
         stage.setScene(scene);
         stage.setTitle("Store Manager");
@@ -61,18 +66,15 @@ public class Main extends ALayout implements WindowSize, Constants, IDimensions 
     }
 
 
-    private static void createNewFiles() throws IOException{
+    private static void createNewFiles() throws IOException {
 
-        createProductFile();
-        createEmployeeFile();
-        createStoreFile();
-
-/*        if (!(PRODUCT_FILE.exists() || EMPLOYEE_FILE.exists() || STORE_FILE.exists())) {
+        if (!(PRODUCT_FILE.exists() || EMPLOYEE_FILE.exists() || STORE_FILE
+.exists())) {
             createProductFile();
             createEmployeeFile();
             createStoreFile();
         } else {
-        }*/
+        }
     }
 
     private static void createProductFile() throws IOException {
@@ -80,7 +82,8 @@ public class Main extends ALayout implements WindowSize, Constants, IDimensions 
         ObjectOutputStream productOut = new ObjectOutputStream(fileOut);
         ArrayList<Product> products = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            products.add(new Product("PlaceHolderProduct " + i,new Random().nextDouble() * 100,new Random().nextInt(50)));
+            products.add(new Product("PlaceHolderProduct " + i,
+                    new Random().nextDouble() * 100, new Random().nextInt(50)));
         }
         productOut.writeObject(products);
         System.out.println("ProductFile created successfully");
@@ -94,7 +97,7 @@ public class Main extends ALayout implements WindowSize, Constants, IDimensions 
         ArrayList<Employee> employees = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
             employees.add(new Employee("EmployeePlaceHolder" + i,
-                    String.format("EmployeeEmail%d@Placeholder.com",i),
+                    String.format("EmployeeEmail%d@Placeholder.com", i),
                     RANDOM_PHONE_NUM));
         }
         employeeOut.writeObject(employees);
@@ -109,7 +112,10 @@ public class Main extends ALayout implements WindowSize, Constants, IDimensions 
         ObjectOutputStream storeOut = new ObjectOutputStream(fileOut);
         ArrayList<Store> stores = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            stores.add(new Store("StorePlaceHolder" + i, RANDOM_PHONE_NUM,String.format("%d Address Placeholder",new Random().nextInt(8999) + 1000),new Employee()));
+            stores.add(new Store("StorePlaceHolder" + i, RANDOM_PHONE_NUM,
+                    String.format("%d Address Placeholder",
+                            new Random().nextInt(8999) + 1000),
+                    new Employee()));
         }
         storeOut.writeObject(stores);
         System.out.println("StoreFile created successfully");
